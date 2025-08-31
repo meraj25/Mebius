@@ -16,17 +16,30 @@ const OrdersPage = () => {
       <ul>
         {orders.map((order) => (
           <li key={order._id}>
-            User: {order.userId}<br />
-            Order ID: {order._id} <br />
-            Order Items: {order.items.length} <br />
-            Total: {order.total} <br />
-            Order Status: {order.status}
-            
+            <div className="p-4 border-b">
+              <div>
+                <strong>User:</strong> {order.userId}
+              </div>
+              <div>
+                <strong>Order ID:</strong> {order._id}
+              </div>
+              <div>
+                <strong>Order Items:</strong> {order.items.length}
+              </div>
+              <div>
+                <strong>Total:</strong> {order.total}
+              </div>
+              <div>
+                <strong>Order Status:</strong> {order.status}
+              </div>
+            </div>
           </li>
         ))}
       </ul>
     </div>
   );
 };
+
+
 
 export default OrdersPage;
