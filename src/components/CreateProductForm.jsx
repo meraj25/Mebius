@@ -34,7 +34,7 @@ const createProductFormSchema = z.object({
   description: z.string().min(1),
 });
 
-function CreateProductForm({ categories }) {
+function CreateProductForm({ categories }, { colors }) {
   const form = useForm({
     resolver: zodResolver(createProductFormSchema),
   });
