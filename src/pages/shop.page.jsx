@@ -22,7 +22,7 @@ function ShopPage() {
   const selectedCategory = categories.find((c) => c.slug === categorySlug);
   const categoryId = selectedCategory?._id;
 
-  // Pass categoryId, color, and sortOrder to the query
+ 
   const {
     data: products = [],
     isLoading,

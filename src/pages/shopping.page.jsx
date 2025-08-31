@@ -13,11 +13,10 @@ function Shopping() {
   const [selectedColor, setSelectedColor] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
-  // fetch colors for filter dropdown
+
   const { data: colors = [] } = useGetAllColorsQuery();
 
-  // Fetch products with query parameters for color and sortOrder
-  // Assuming useGetAllProductsQuery accepts an object parameter for filtering and sorting
+
   const { data: products = [], isLoading, isError, error } = useGetAllProductsQuery({
     color: selectedColor || undefined,
     sortPrice: sortOrder || undefined,
