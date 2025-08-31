@@ -1,3 +1,4 @@
+import { on } from "events";
 import { Input } from "./ui/input";
 import { putImage } from "@/lib/product";
 
@@ -13,10 +14,13 @@ function ImageInput({ onChange, value }) {
       if (!file) {
         return;
       }
-      const publicUrl = await putImage({ file }); 
+      const url = "https://via.placeholder.com/150";
+      //const publicUrl = await putImage({ file });
 
-      console.log(publicUrl);
-      onChange(publicUrl);
+      //console.log(publicUrl);
+      console.log(url);
+      //onChange(publicUrl);
+      onChange(url);
     } catch (error) {
       console.log(error);
     }
