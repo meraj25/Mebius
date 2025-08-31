@@ -4,6 +4,7 @@ function OrderHistory({ orders }) {
     <div>
       <h2>Your Order History</h2>
       <ul>
+        {console.log(orders)}
         {orders.map((order) => (
           <li key={order._id} className="mb-6 border-b pb-4">
             <div>
