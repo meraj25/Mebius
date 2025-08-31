@@ -2,7 +2,7 @@ function OrderHistory({ orders }) {
 
   return (
     <div>
-      <h2>Your Order History</h2>
+      <h2 className="text-xl font-semibold text-center">Your Order History</h2>
       <ul>
         {orders.map((order) => (
           <li key={order._id} className="mb-6 border-b pb-4">
