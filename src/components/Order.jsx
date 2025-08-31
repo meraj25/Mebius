@@ -17,3 +17,5 @@ function OrderHistory({ orders }) {
     </div>
   );
 }
+
+export default OrderHistory;
