@@ -27,9 +27,6 @@ const OrdersPage = () => {
                 <strong>Order Items:</strong> {order.items.length}
               </div>
               <div>
-                <strong>Total:</strong> {order.total}
-              </div>
-              <div>
                 <strong>Order Status:</strong> {order.status}
               </div>
             </div>
