@@ -27,14 +27,16 @@ export const Api = createApi({
   endpoints: (build) => ({
 
   getAllProducts: build.query({
-  query: (categoryId) => {
-    if (!categoryId) return `/products`;
-
-
-    return `/products?categoryId=${categoryId}`;
-    
-  }
+  query: ({ categoryId, color, sortPrice }) => {
+    let queryParams = [];
+    if (categoryId) queryParams.push(`categoryId=${categoryId}`);
+    if (color) queryParams.push(`color=${color}`);
+    if (sortPrice) queryParams.push(`sortPrice=${sortPrice}`);
+    const queryString = queryParams.length ? `?${queryParams.join('&')}` : '';
+    return `/products${queryString}`;
+  },
 }),
+
 getAllOrders: build.query({
   query: (userId) => {
     if (!userId) return `/orders`;
