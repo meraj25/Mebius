@@ -1,18 +1,8 @@
-import { useGetAllOrdersQuery } from "@/lib/api";
-
-const OrdersPage = () => {
-  const {
-      data: orders = [],
-      isLoading,
-      isError,
-      error,
-    } = useGetAllOrdersQuery();
-
-  if (isLoading) return <div>Loading...</div>;
+function OrderHistory({ orders }) {
 
   return (
     <div>
-      <h1>All Orders</h1>
+      <h2>Your Order History</h2>
       <ul>
         {orders.map((order) => (
           <li key={order._id}>
@@ -26,6 +16,4 @@ const OrdersPage = () => {
       </ul>
     </div>
   );
-};
-
-export default OrdersPage;
+}
