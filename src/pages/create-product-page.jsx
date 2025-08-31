@@ -1,8 +1,9 @@
 import CreateProductForm from "@/components/CreateProductForm";
-import { useGetAllCategoriesQuery } from "@/lib/api";
+import { useGetAllCategoriesQuery, useGetAllColorsQuery} from "@/lib/api";
 function CreateProductPage() {
 
     const { data: categories } = useGetAllCategoriesQuery();
+    const { data: colors } = useGetAllColorsQuery();
 
     console.log(categories);
 
@@ -13,7 +14,7 @@ function CreateProductPage() {
       <br />
       <br />
 
-      <CreateProductForm categories={categories} />
+      <CreateProductForm categories={categories} colors={colors} />
     </main>
   );
 }

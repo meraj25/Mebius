@@ -94,15 +94,26 @@ function CreateProductForm({ categories }) {
             </FormItem>
           )}
         />
-        <FormField
+         <FormField
           control={form.control}
           name="color"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Product color</FormLabel>
-              <FormControl>
-                <Input placeholder="White" {...field} />
-              </FormControl>
+              <FormLabel>Color</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a color" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {colors?.map((color) => (
+                    <SelectItem key={color._id} value={color._id}>
+                      {color.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
