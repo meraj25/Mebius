@@ -1,5 +1,5 @@
 export const putImage = async ({ file }) => {
-  const res = await fetch(`http://localhost:8000/api/products/images`, {
+  const res = await fetch(`https://mebius-backend-meraj.onrender.com/api/products/images`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
