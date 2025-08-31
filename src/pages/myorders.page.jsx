@@ -1,6 +1,6 @@
 import { useGetAllOrdersQuery } from "@/lib/api";
 import { useUser } from "@clerk/clerk-react";
-import OrderHistory from "@/components/OrderHistory";
+import OrderHistory from "@/components/Order";
 
 function MyOrdersPage() {
   const { user } = useUser();
