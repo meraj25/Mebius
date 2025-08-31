@@ -14,13 +14,13 @@ function ImageInput({ onChange, value }) {
       if (!file) {
         return;
       }
-      const url = "https://via.placeholder.com/150";
-      //const publicUrl = await putImage({ file });
+      //const url = "https://via.placeholder.com/150";
+      const publicUrl = await putImage({ file });
 
-      //console.log(publicUrl);
-      console.log(url);
-      //onChange(publicUrl);
-      onChange(url);
+      console.log(publicUrl);
+      //console.log(url);
+      onChange(publicUrl);
+      //onChange(url);
     } catch (error) {
       console.log(error);
     }
