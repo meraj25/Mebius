@@ -43,7 +43,7 @@ createRoot(document.getElementById("root")).render(
               <Route path="/shop">
                 <Route path=":category" element={<ShopPage />} />
                 <Route path="cart" element={<CartPage />} />
-                <Route path="complete" element={<CompletePage />} />
+               
                 <Route element={<ProtectedLayout />}>
                   <Route path="checkout" element={<CheckoutPage />} />
                   <Route path="payment" element={<PaymentPage />} />
@@ -63,6 +63,7 @@ createRoot(document.getElementById("root")).render(
             <Route element={<RootLayout />}>
              <Route path="shop/products/:id" element={<SearchedProductPage />} />
              <Route path="/all" element={<Shopping />} />
+              <Route path="shop/complete" element={<CompletePage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route element={<ProtectedLayout />}>
