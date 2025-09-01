@@ -1,75 +1,102 @@
-import Chart from "@/components/ui/chart";
-import { useGetAllOrdersQuery } from "@/lib/api";
+import React from "react";
+import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts";
 
-function getLast7DaysLabels() {
-  const labels = [];
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    labels.push(d.toLocaleDateString("en-US", { month: "short", day: "numeric" }));
-  }
-  return labels;
-}
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "./ui/chart";
 
-function getOrdersCountByDay(orders) {
-  const counts = Array(7).fill(0);
-  const today = new Date();
-  orders.forEach(order => {
-    const orderDate = new Date(order.createdAt);
-    for (let i = 0; i < 7; i++) {
-      const compareDate = new Date();
-      compareDate.setDate(today.getDate() - (6 - i));
-      if (
-        orderDate.getDate() === compareDate.getDate() &&
-        orderDate.getMonth() === compareDate.getMonth() &&
-        orderDate.getFullYear() === compareDate.getFullYear()
-      ) {
-        counts[i]++;
-      }
-    }
-  });
-  return counts;
-}
+// ⬅️ import your generated RTK Query hook
+import { useGetOrderCountsQuery } from "@/lib/api"; // adjust path to your api slice
 
-export default function Sales() {
-  const {
-      data: orders = [],
-      isLoading,
-      isError,
-      error,
-    } = useGetAllOrdersQuery();
+// Chart config
+const chartConfig = {
+  orders: {
+    label: "Orders",
+    color: "var(--chart-2)",
+  },
+  label: {
+    color: "var(--background)",
+  },
+};
 
-  const labels = getLast7DaysLabels();
-  const data = getOrdersCountByDay(orders);
+export default function Chart() {
 
-  const chartData = {
-    labels,
-    datasets: [
-      {
-        label: "Orders",
-        data,
-        backgroundColor: "#6366f1",
-      },
-    ],
-  };
+  const { data: chartData = [], isLoading, isError } = useGetOrderCountsQuery();
 
   return (
-    <div className="max-w-xl mx-auto mt-8">
-      <h2 className="text-2xl font-bold mb-4">Orders in the Last 7 Days</h2>
-      {isLoading ? (
-        <div>Loading chart...</div>
-      ) : (
-        <Chart type="bar" data={chartData} options={{
-          responsive: true,
-          plugins: {
-            legend: { display: false },
-            title: { display: false },
-          },
-          scales: {
-            y: { beginAtZero: true, ticks: { stepSize: 1 } },
-          },
-        }} />
-      )}
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Orders per Day</CardTitle>
+        <CardDescription>Recent order trends</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {isLoading ? (
+          <div className="text-muted-foreground">Loading chart...</div>
+        ) : isError ? (
+          <div className="text-red-500">Failed to load data</div>
+        ) : (
+          <ChartContainer config={chartConfig}>
+            <BarChart
+              accessibilityLayer
+              data={chartData}
+              layout="vertical"
+              margin={{ right: 16 }}
+            >
+              <CartesianGrid horizontal={false} />
+              <YAxis
+                dataKey="date"
+                type="category"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(5)} // show MM-DD
+              />
+              <XAxis dataKey="orders" type="number" hide />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="line" />}
+              />
+              <Bar
+                dataKey="orders"
+                layout="vertical"
+                fill="var(--color-desktop)"
+                radius={4}
+              >
+                <LabelList
+                  dataKey="date"
+                  position="insideLeft"
+                  offset={8}
+                  className="fill-(--color-label)"
+                  fontSize={12}
+                />
+                <LabelList
+                  dataKey="orders"
+                  position="right"
+                  offset={8}
+                  className="fill-foreground"
+                  fontSize={12}
+                />
+              </Bar>
+            </BarChart>
+          </ChartContainer>
+        )}
+      </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="text-muted-foreground leading-none">
+          Showing orders placed in the past few days
+        </div>
+      </CardFooter>
+    </Card>
   );
 }

@@ -16,24 +16,13 @@ import {
   ChartTooltipContent,
 } from "./ui/chart";
 
-// Example chart data
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
+// ⬅️ import your generated RTK Query hook
+import { useGetOrderCountsQuery } from "@/lib/api"; // adjust path to your api slice
 
-// Example chart config
+// Chart config
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-2)",
-  },
-  mobile: {
-    label: "Mobile",
+  orders: {
+    label: "Orders",
     color: "var(--chart-2)",
   },
   label: {
@@ -41,68 +30,74 @@ const chartConfig = {
   },
 };
 
-export default function ChartBarLabelCustom() {
+export default function Chart() {
+
+  const { data: chartData = [], isLoading, isError } = useGetOrderCountsQuery();
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Custom Label</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Orders per Day</CardTitle>
+        <CardDescription>Recent order trends</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            layout="vertical"
-            margin={{
-              right: 16,
-            }}
-          >
-            <CartesianGrid horizontal={false} />
-            <YAxis
-              dataKey="month"
-              type="category"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-              hide
-            />
-            <XAxis dataKey="desktop" type="number" hide />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
-            <Bar
-              dataKey="desktop"
+        {isLoading ? (
+          <div className="text-muted-foreground">Loading chart...</div>
+        ) : isError ? (
+          <div className="text-red-500">Failed to load data</div>
+        ) : (
+          <ChartContainer config={chartConfig}>
+            <BarChart
+              accessibilityLayer
+              data={chartData}
               layout="vertical"
-              fill="var(--color-desktop)"
-              radius={4}
+              margin={{ right: 16 }}
             >
-              <LabelList
-                dataKey="month"
-                position="insideLeft"
-                offset={8}
-                className="fill-(--color-label)"
-                fontSize={12}
+              <CartesianGrid horizontal={false} />
+              <YAxis
+                dataKey="date"
+                type="category"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(5)} // show MM-DD
               />
-              <LabelList
-                dataKey="desktop"
-                position="right"
-                offset={8}
-                className="fill-foreground"
-                fontSize={12}
+              <XAxis dataKey="orders" type="number" hide />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="line" />}
               />
-            </Bar>
-          </BarChart>
-        </ChartContainer>
+              <Bar
+                dataKey="orders"
+                layout="vertical"
+                fill="var(--color-desktop)"
+                radius={4}
+              >
+                <LabelList
+                  dataKey="date"
+                  position="insideLeft"
+                  offset={8}
+                  className="fill-(--color-label)"
+                  fontSize={12}
+                />
+                <LabelList
+                  dataKey="orders"
+                  position="right"
+                  offset={8}
+                  className="fill-foreground"
+                  fontSize={12}
+                />
+              </Bar>
+            </BarChart>
+          </ChartContainer>
+        )}
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 leading-none font-medium">
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="text-muted-foreground leading-none">
-          Showing total visitors for the last 6 months
+          Showing orders placed in the past few days
         </div>
       </CardFooter>
     </Card>
