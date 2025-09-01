@@ -9,15 +9,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "@/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "./ui/chart";
+} from "@/components/ui/chart";
 
 // ⬅️ import your generated RTK Query hook
-import { useGetOrderCountsQuery } from "@/lib/api"; // adjust path to your api slice
+import { useGetOrderCountsQuery } from "@/lib/api";
 
 // Chart config
 const chartConfig = {

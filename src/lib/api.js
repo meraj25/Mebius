@@ -108,7 +108,8 @@ export const {
   useGetProductsByIdQuery,
   useGetAllOrdersQuery,
   useGetAllColorsQuery,
-  useCreateCheckoutSessionMutation
+  useCreateCheckoutSessionMutation,
+  useGetOrderCountsQuery
 
 } = Api;
 /*
