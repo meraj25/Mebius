@@ -64,6 +64,9 @@ getAllOrders: build.query({
     getAllColors: build.query({
       query: () => `/colors`,
     }),
+    getOrderCounts: build.query({
+      query: () => `/orders/count`,
+    }),
     createProduct: build.mutation({
       query: (product) => ({
         url: "/products",
