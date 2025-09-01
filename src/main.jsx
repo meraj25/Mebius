@@ -21,9 +21,9 @@ import Shopping from "./pages/shopping.page";
 import OrdersPage from "./pages/orders.page";
 import MyOrdersPage from "./pages/myorders.page";
 import PaymentPage from "./pages/payment.page";
-
 import { ClerkProvider } from "@clerk/clerk-react";
 import CompletePage from "./pages/complete.page";
+import Sales from "./pages/sales.page";
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -54,6 +54,10 @@ createRoot(document.getElementById("root")).render(
                   <Route
                     path="/admin/products/create"
                     element={<CreateProductPage />}
+                  />
+                  <Route
+                    path="/admin/sales"
+                    element={<Sales/>}
                   />
 
                 </Route>

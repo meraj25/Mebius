@@ -30,7 +30,7 @@ const chartConfig = {
   },
 };
 
-export default function Chart() {
+export default function Sales() {
 
   const { data: chartData = [], isLoading, isError } = useGetOrderCountsQuery();
 
