@@ -4,7 +4,7 @@ function HeroGrid() {
     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-4 lg:px-16 min-h-[60vh] md:min-h-[80vh] gap-4 mt-4">
       <div className="relative col-span-1 lg:col-span-2 rounded-2xl">
         <img
-          src={"/assets/images/C98001-WHITE_fcbeff5b-e3c1-48c3-a09f-b0207d5112c3.webp"}
+          src={"/assets/images/outdoor-activities-to-try-for-hotel-lovers.jpg"}
           className="rounded-2xl w-full h-full object-cover"
           alt="hero"
         />
