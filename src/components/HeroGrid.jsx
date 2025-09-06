@@ -9,11 +9,11 @@ function HeroGrid() {
           alt="hero"
         />
         <div className="absolute top-4 sm:top-8 left-4 sm:left-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-black">
             Color of <br /> Summer
             <br /> Outfit
           </h1>
-          <p className="text-white text-base sm:text-lg md:text-xl mt-2 sm:mt-4">
+          <p className="text-gray-500 text-base sm:text-lg md:text-xl mt-2 sm:mt-4">
             100+ Collections for your <br /> outfit inspirations <br />
             in this summer
           </p>
@@ -27,7 +27,7 @@ function HeroGrid() {
             className="rounded-2xl w-full h-full object-cover"
           />
           <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-black">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white">
               Outdoor <br /> Active
             </h1>
           </div>
@@ -39,7 +39,7 @@ function HeroGrid() {
             className="rounded-2xl w-full h-full object-cover"
           />
           <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-black">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white">
               Casual <br /> Comfort
             </h1>
           </div>
