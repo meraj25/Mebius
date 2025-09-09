@@ -51,6 +51,7 @@ export default function Chart() {
               accessibilityLayer
               data={chartData}
               layout="vertical"
+              barSize={24}
               margin={{ right: 16 }}
             >
               <CartesianGrid horizontal={false} />
@@ -70,21 +71,21 @@ export default function Chart() {
               <Bar
                 dataKey="orders"
                 layout="vertical"
-                fill="#6366f1"
+                fill="#2563eb"
                 radius={4}
               >
                 <LabelList
                   dataKey="date"
                   position="insideLeft"
                   offset={8}
-                  className="fill-(--color-label)"
+                  className="fill-white"
                   fontSize={12}
                 />
                 <LabelList
                   dataKey="orders"
                   position="right"
                   offset={8}
-                  className="fill-foreground"
+                  className="fill-blue-700"
                   fontSize={12}
                 />
               </Bar>
