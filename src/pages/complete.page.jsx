@@ -23,6 +23,7 @@ function CompletePage() {
 
   if (data?.status === "complete") {
     return (
+      <main className="px-8">
       <section id="success" className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-4 text-green-600">Order Completed Successfully!</h2>
         <p className="mb-4">
@@ -50,6 +51,7 @@ function CompletePage() {
           <Link to="/">Return to Home</Link>
         </Button>
       </section>
+      </main>
     );
   }
 
