@@ -65,10 +65,16 @@ createRoot(document.getElementById("root")).render(
               </Route>
             </Route>
 
+            <Route element={<AdminProtectedLayout />}>
+              <Route path="/complete" element={<CompletePage />} />
+            </Route>
+
+
+
             <Route element={<RootLayout />}>
              <Route path="shop/products/:id" element={<SearchedProductPage />} />
              <Route path="/all" element={<Shopping />} />
-              <Route path="shop/complete" element={<CompletePage />} />
+              
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route element={<ProtectedLayout />}>
