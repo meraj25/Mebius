@@ -23,7 +23,7 @@ import { useGetOrderCountsQuery } from "@/lib/api"; // adjust path to your api s
 const chartConfig = {
   orders: {
     label: "Orders",
-    color: "#6366f1",
+    color: "var(--chart-2)",
   },
   label: {
     color: "#fff",
