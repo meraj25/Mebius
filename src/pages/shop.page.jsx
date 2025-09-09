@@ -1,90 +1,42 @@
-import { useState } from "react";
-import SimpleProductCard from "@/components/SimpleProductCard";
-import { useGetAllProductsQuery, useGetAllCategoriesQuery, useGetAllColorsQuery } from "@/lib/api";
-import { useParams } from "react-router";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import CartItem from "@/components/CartItem";
+import { useDispatch, useSelector } from "react-redux";
+import { Navigate } from "react-router";
+import { useSearchParams } from "react-router";
+import PaymentForm from "@/components/PaymentForm";
 
-function ShopPage() {
-  const { category: categorySlug } = useParams();
+function PaymentPage() {
+  const cart = useSelector((state) => state.cart.cartItems);
+  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const orderId = searchParams.get("orderId");
 
-  const { data: categories = [] } = useGetAllCategoriesQuery();
-  const { data: colors = [] } = useGetAllColorsQuery();
-
-  const [selectedColor, setSelectedColor] = useState("");
-  const [sortOrder, setSortOrder] = useState("");
-
-  const selectedCategory = categories.find((c) => c.slug === categorySlug);
-  const categoryId = selectedCategory?._id;
-
- 
-  const {
-    data: products = [],
-    isLoading,
-    isError,
-    error,
-  } = useGetAllProductsQuery({
-    categoryId: categoryId || undefined,
-    color: selectedColor || undefined,
-    sortPrice: sortOrder || undefined,
-  });
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (isError) {
-    return <p>Error: {error?.message || "Something went wrong"}</p>;
+  if (cart.length === 0) {
+    return <Navigate to="/" />;
   }
 
   return (
-    <main>
-      <h1 className="text-2xl font-bold text-center mt-8 mb-4">{selectedCategory?.name || categorySlug}</h1>
-      <div className="flex items-end gap-6 mb-6">
-        <div>
-          <h2>Filter By:</h2>
-          <Select value={selectedColor} onValueChange={setSelectedColor}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select a color" />
-            </SelectTrigger>
-            <SelectContent>
-              {colors.map((color) => (
-                <SelectItem key={color._id} value={color._id}>
-                  {color.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        <div>
-          <h2>Sort By Price:</h2>
-          <Select value={sortOrder} onValueChange={setSortOrder}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select order" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="asc">Price: Low to High</SelectItem>
-              <SelectItem value="desc">Price: High to Low</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+    <main className="px-8">
+      <h2 className="text-4xl font-bold">Review Your Order</h2>
+      <div className="mt-4 grid grid-cols-4 gap-x-4">
+        {cart.map((item, index) => (
+          <CartItem key={index} item={item} />
+        ))}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.length > 0 ? (
-          products.map((product) => (
-            <SimpleProductCard key={product._id} product={product} />
-          ))
-        ) : (
-          <p>No products found.</p>
-        )}
+      <div className="mt-4">
+        <p>
+          Total Price: $
+          {cart.reduce(
+            (acc, item) => acc + item.product.price * item.quantity,
+            0
+          )}
+        </p>
+      </div>
+
+      <div className="mt-4">
+        <PaymentForm orderId={orderId} />
       </div>
     </main>
   );
 }
 
-export default ShopPage;
+export default PaymentPage;

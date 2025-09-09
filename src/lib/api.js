@@ -52,6 +52,9 @@ getAllOrders: build.query({
       query: (query) => `/products/search?search=${query}`,
     }),
     
+     getCheckoutSessionStatus: build.query({
+      query: (sessionId) => `/payments/session-status?session_id=${sessionId}`,
+    }),
 
     getProductsById: build.query({
       query: (productId) => `/products/${productId}`,
@@ -81,10 +84,7 @@ getAllOrders: build.query({
         body: order,
       }),
     }),
-   getCheckoutSessionStatus: build.query({
-      query: (sessionId) => `/payments/session-status?session_id=${sessionId}`,
-    }),
-    
+   
     createCheckoutSession: build.mutation({
   query: (orderId) => ({
     url: "/payments/create-checkout-session",
