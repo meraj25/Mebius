@@ -47,6 +47,7 @@ createRoot(document.getElementById("root")).render(
                 <Route element={<ProtectedLayout />}>
                   <Route path="checkout" element={<CheckoutPage />} />
                   <Route path="payment" element={<PaymentPage />} />
+                  <Route path="complete" element={<CompletePage />} />
                 </Route>
               </Route>
             
@@ -64,11 +65,6 @@ createRoot(document.getElementById("root")).render(
                 </Route>
               </Route>
             </Route>
-
-            <Route element={<AdminProtectedLayout />}>
-              <Route path="/complete" element={<CompletePage />} />
-            </Route>
-
 
 
             <Route element={<RootLayout />}>
