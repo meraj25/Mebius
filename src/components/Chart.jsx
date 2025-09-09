@@ -23,10 +23,10 @@ import { useGetOrderCountsQuery } from "@/lib/api"; // adjust path to your api s
 const chartConfig = {
   orders: {
     label: "Orders",
-    color: "var(--chart-2)",
+    color: "#6366f1",
   },
   label: {
-    color: "var(--background)",
+    color: "#fff",
   },
 };
 
@@ -70,7 +70,7 @@ export default function Chart() {
               <Bar
                 dataKey="orders"
                 layout="vertical"
-                fill="var(--color-desktop)"
+                fill="#6366f1"
                 radius={4}
               >
                 <LabelList
