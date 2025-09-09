@@ -41,7 +41,7 @@ createRoot(document.getElementById("root")).render(
             <Route element={<RootLayout />}>
               <Route path="/" element={<HomePage />} />
               <Route path="/shop">
-                <Route path=":category" element={<ShopPage />} />
+                
                 <Route path="cart" element={<CartPage />} />
                
                 <Route element={<ProtectedLayout />}>
@@ -49,6 +49,9 @@ createRoot(document.getElementById("root")).render(
                   <Route path="payment" element={<PaymentPage />} />
                   <Route path="complete" element={<CompletePage />} />
                 </Route>
+
+                <Route path=":category" element={<ShopPage />} />
+                
               </Route>
             
               <Route element={<ProtectedLayout />}>
