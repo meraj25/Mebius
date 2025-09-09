@@ -50,6 +50,10 @@ createRoot(document.getElementById("root")).render(
                 </Route>
               </Route>
               <Route element={<ProtectedLayout />}>
+                  <Route path="complete" element={<CompletePage />} />
+
+                </Route>
+              <Route element={<ProtectedLayout />}>
                 <Route element={<AdminProtectedLayout />}>
                   <Route
                     path="/admin/products/create"
