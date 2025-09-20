@@ -38,15 +38,15 @@ function MyOrdersPage() {
               <div>
                 <strong>Items:</strong>
                 <ul className="list-disc ml-6 mt-2">
-                  {order.items.map((item, idx) => (
-                    <li key={idx}>
-                      {item.product?.name || item.name} &times; {item.quantity}{" "}
-                      <span className="text-gray-500">
-                        (${item.price?.toFixed(2) || "N/A"})
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+  {order.items?.map((item, idx) => (
+    <li key={idx}>
+      {item.product?.name || item.name} &times; {item.quantity}{" "}
+      <span className="text-gray-500">
+        (${item.price?.toFixed(2) || "N/A"})
+      </span>
+    </li>
+  )) || <li>No items available</li>}
+</ul>
               </div>
               <div className="mt-4 font-semibold">
                 Total Price: $
