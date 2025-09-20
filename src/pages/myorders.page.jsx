@@ -19,6 +19,7 @@ function MyOrdersPage() {
     error,
   } = useGetAllOrdersQuery({ userId });
 
+  console.log(orders);
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error?.message || "Something went wrong"}</div>;
 
