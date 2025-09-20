@@ -52,13 +52,12 @@ function MyOrdersPage() {
               </div>
               <div className="mt-4 font-semibold">
                 Total Price: $
-                {order.items
-                  .reduce(
-                    (sum, item) =>
-                      sum + (item.price ? item.price * item.quantity : 0),
-                    0
-                  )
-                  .toFixed(2)}
+                {(order.items || []).reduce(
+                (sum, item) =>
+                 sum + (item.price ? item.price * item.quantity : 0),
+                 0
+                ).toFixed(2)}
+
               </div>
             </CardContent>
           </Card>
