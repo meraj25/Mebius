@@ -19,8 +19,6 @@ function MyOrdersPage() {
     error,
   } = useGetAllOrdersQuery({ userId });
 
-  console.log(orders);
-
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error?.message || "Something went wrong"}</div>;
 
@@ -39,25 +37,36 @@ function MyOrdersPage() {
             <CardContent>
               <div>
                 <strong>Items:</strong>
-                <ul className="list-disc ml-6 mt-2">
-  {order.items?.map((item, idx) => (
-    <li key={idx}>
-      {item.product?.name || item.name} &times; {item.quantity}{" "}
-      <span className="text-gray-500">
-        (${item.price?.toFixed(2) || "N/A"})
-      </span>
-    </li>
-  )) || <li>No items available</li>}
-</ul>
+                <ul className="list-disc ml-6 mt-2 space-y-3">
+                  {(order.items || []).map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-3">
+                      {item.product?.image && (
+                        <img
+                          src={item.product.image}
+                          alt={item.product?.name || item.name}
+                          className="w-12 h-12 object-cover rounded"
+                        />
+                      )}
+                      <span>
+                        {item.product?.name || item.name} &times; {item.quantity}{" "}
+                        <span className="text-gray-500">
+                          (${item.price?.toFixed(2) || "N/A"})
+                        </span>
+                      </span>
+                    </li>
+                  ))}
+                  {(!order.items || order.items.length === 0) && (
+                    <li>No items available</li>
+                  )}
+                </ul>
               </div>
               <div className="mt-4 font-semibold">
                 Total Price: $
                 {(order.items || []).reduce(
-                (sum, item) =>
-                 sum + (item.price ? item.price * item.quantity : 0),
-                 0
+                  (sum, item) =>
+                    sum + (item.price ? item.price * item.quantity : 0),
+                  0
                 ).toFixed(2)}
-
               </div>
             </CardContent>
           </Card>
