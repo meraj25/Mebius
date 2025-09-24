@@ -1,4 +1,4 @@
-import { useGetAllOrdersQuery, useGetAllProductsQuery } from "@/lib/api";
+import { useGetAllOrdersQuery } from "@/lib/api";
 import { useUser } from "@clerk/clerk-react";
 import {
   Card,
@@ -19,14 +19,9 @@ function MyOrdersPage() {
     error,
   } = useGetAllOrdersQuery({ userId });
 
-  // Fetch all products
-  const { data: products = [] } = useGetAllProductsQuery();
-
+  console.log(orders);
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error?.message || "Something went wrong"}</div>;
-
-  // Helper to get product details by id
-  const getProductById = (id) => products.find((p) => p._id === id);
 
   return (
     <div className="max-w-2xl mx-auto mt-8 space-y-6">
@@ -44,26 +39,23 @@ function MyOrdersPage() {
               <div>
                 <strong>Items:</strong>
                 <ul className="list-disc ml-6 mt-2 space-y-3">
-                  {(order.items || []).map((item, idx) => {
-                    const product = getProductById(item.productId || item.product?._id || item._id);
-                    return (
-                      <li key={idx} className="flex items-center gap-3">
-                        {product?.image && (
-                          <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-12 h-12 object-cover rounded"
-                          />
-                        )}
-                        <span>
-                          {product?.name || "Unknown Product"} &times; {item.quantity}{" "}
-                          <span className="text-gray-500">
-                            (${product?.price?.toFixed(2) || "N/A"})
-                          </span>
+                  {(order.items || []).map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-3">
+                      {item.product?.image && (
+                        <img
+                          src={item.product.image}
+                          alt={item.product?.name || item.name}
+                          className="w-12 h-12 object-cover rounded"
+                        />
+                      )}
+                      <span>
+                        {item.product?.name || item.name} &times; {item.quantity}{" "}
+                        <span className="text-gray-500">
+                          (${item.price?.toFixed(2) || "N/A"})
                         </span>
-                      </li>
-                    );
-                  })}
+                      </span>
+                    </li>
+                  ))}
                   {(!order.items || order.items.length === 0) && (
                     <li>No items available</li>
                   )}
@@ -72,10 +64,8 @@ function MyOrdersPage() {
               <div className="mt-4 font-semibold">
                 Total Price: $
                 {(order.items || []).reduce(
-                  (sum, item) => {
-                    const product = getProductById(item.productId || item.product?._id || item._id);
-                    return sum + (product?.price ? product.price * item.quantity : 0);
-                  },
+                  (sum, item) =>
+                    sum + (item.price ? item.price * item.quantity : 0),
                   0
                 ).toFixed(2)}
               </div>

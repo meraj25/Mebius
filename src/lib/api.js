@@ -42,7 +42,7 @@ getAllOrders: build.query({
     if (!userId) return `/orders`;
 
 
-    return `/products?${userId}`;
+    return `/orders?${userId}`;
   },
 }),
 
