@@ -41,15 +41,15 @@ function MyOrdersPage() {
                 <ul className="list-disc ml-6 mt-2 space-y-3">
                   {(order.items || []).map((item, idx) => (
                     <li key={idx} className="flex items-center gap-3">
-                      {item.product?.image && (
+                      {item.productId?.image && (
                         <img
-                          src={item.product.image}
-                          alt={item.product?.name || item.name}
+                          src={item.productId.image}
+                          alt={item.productId?.name || item.name}
                           className="w-12 h-12 object-cover rounded"
                         />
                       )}
                       <span>
-                        {item.product?.name || item.name} &times; {item.quantity}{" "}
+                        {item.productId?.name || item.name} &times; {item.quantity}{" "}
                         <span className="text-gray-500">
                           (${item.price?.toFixed(2) || "N/A"})
                         </span>
